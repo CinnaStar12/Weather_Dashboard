@@ -1,9 +1,9 @@
 $("document").ready(function () {
-    $(".btn").on("click", function () {
+    $("#search").on("click", function () {
         $("#results-div").empty();
         var location = $("#city-input").val()
         currentWeather(location);
-
+        locationButton(location);
     });
     currentWeather("London");
     
@@ -22,9 +22,33 @@ function currentWeather(city) {
         cityName = $("<p>");
         cityName.text(response.name + "(" + moment().format("MM/DD/YYYY") + ")")
         cityName.attr("class", "h2");
+        var weatherIcon = $("<span>");
+        if(response.weather[0].main === "Clouds")
+        {
+            weatherIcon.attr("class", "fas fa-cloud")
+        }
+        else if(response.weather[0].main === "Clear"){
+            weatherIcon.attr("class", "fas fa-sun")
+        }
+        else if(response.weather[0].main === "Thunderstorm"){
+            weatherIcon.attr("class", "fas fa-bolt")
+        }
+        else if(response.weather[0].main === "Drizzle"){
+            weatherIcon.attr("class", "fas fa-cloud-rain")
+        }
+        else if(response.weather[0].main === "Rain"){
+            weatherIcon.attr("class", "fas fa-cloud-showers-heavy")
+        }
+        else if(response.weather[0].main === "Snow"){
+            weatherIcon.attr("class", "fas fa-snowflake")
+        }
+        else if(response.weather[0].id >= 700 && response.weather[0].id < 800){
+            weatherIcon.attr("class", "fas fa-smog")
+        }
         var temperature = $("<p>")
+        cityName.append(weatherIcon);
         $("#results-div").append(cityName);
-        temperature.text("Temperature: " + kelvinToFarenheit(response.main.temp) + String.fromCharCode(176));
+        temperature.text("Temperature: " + kelvinToFarenheit(response.main.temp) + String.fromCharCode(176) + "F");
         $("#results-div").append(temperature)
         var humidity = $("<p>");
         humidity.text("Humidity: " + response.main.humidity + String.fromCharCode(37));
@@ -33,7 +57,7 @@ function currentWeather(city) {
         windSpeed.text("Wind Speed: " + mpsToMph(response.wind.speed) + " mph");
         $("#results-div").append(windSpeed);
         uvIndex(response.coord.lat, response.coord.lon);
-        forecast(city);
+        forecast(city)
     })
 }
 
@@ -87,38 +111,68 @@ function forecast(city){
         method: "GET"
     }).then(function (response){
         console.log(response)
+        $(".forecast-div").empty();
         var day = response.list
         var forecastIndex = 0;
         var dayIndex = 1;
         var forecastDeck = $("<div>")
-        forecastDeck.attr("class", "container flex-right")
+        forecastDeck.attr("class", "card-deck")
 
         for(var i = 4; i < day.length; i+=8){
             var tempMin = 0;
             var humidity = 0;
             tempMin = day[i].main.temp_min
-            tempMin = tempMin/8;
-            tempMin = tempMin.toFixed(2);
+            tempMin = kelvinToFarenheit(tempMin);
+            //tempMin = tempMin.toFixed(1);
             humidity = day[i].main.humidity;
-            humidity = humidity/8;
-            humidity = humidity.toFixed(2);
+            humidity = humidity.toFixed(0);
             var forecastCard = $("<div>")
-            forecastCard.attr("class", "card-body");
+            forecastCard.attr("class", "card col-md");
             var forecastDay = $("<h5>")
-            forecastDay.text(moment().add(dayIndex, 'd').format('dddd'));
+            forecastDay.text(moment().add(dayIndex, 'd').format("ddd") + " " + moment().add(dayIndex, 'd').format('MM/DD'));
             dayIndex++;
             forecastCard.append(forecastDay);
+            var forecastIcon = $("<span>")
+            if(day[i].weather[0].main === "Clouds")
+            {
+                forecastIcon.attr("class", "fas fa-cloud")
+            }
+            else if(day[i].weather[0].main === "Clear"){
+                forecastIcon.attr("class", "fas fa-sun")
+            }
+            else if(day[i].weather[0].main === "Thunderstorm"){
+                forecastIcon.attr("class", "fas fa-bolt")
+            }
+            else if(day[i].weather[0].main === "Drizzle"){
+                forecastIcon.attr("class", "fas fa-cloud-rain")
+            }
+            else if(day[i].weather[0].main === "Rain"){
+                forecastIcon.attr("class", "fas fa-cloud-showers-heavy")
+            }
+            else if(day[i].weather[0].main === "Snow"){
+                forecastIcon.attr("class", "fas fa-snowflake")
+            }
+            else if(day[i].weather[0].main >= 700 && response.weather[0].id < 800){
+                forecastIcon.attr("class", "fas fa-smog")
+            }
+            forecastCard.append(forecastIcon);
             var forecastTemp = $("<p>");
-            forecastTemp.text(tempMin);
+            forecastTemp.text(tempMin + String.fromCharCode(176) + "F");
             forecastCard.append(forecastTemp);
             var forecastHumidity = $("<p>");
-            forecastHumidity.text(humidity);
+            forecastHumidity.text("Humidity: " + humidity + "%");
             forecastCard.append(forecastHumidity);
             forecastDeck.append(forecastCard);
             
         }
-        $("#results-div").append(forecastDeck);
+        $(".forecast-div").append(forecastDeck);
         
 
     })
+}
+function locationButton(location){
+    var locationButton = $("<button>");
+    locationButton.text(location)
+    locationButton.attr("class", "btn btn-secondary loc-btn")
+    $("#loc-button-div").append(locationButton)
 }

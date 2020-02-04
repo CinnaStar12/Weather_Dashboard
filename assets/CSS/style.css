@@ -1,9 +1,12 @@
 #search-div{
     border: 2px solid black;
     padding: 20px;
-}
-#results-div{
+    margin: 5px;
+}    
+    #results-div{
     border: 2px solid #555555;
+    padding: 15px;
+    margin: 5px;
 }
 .uv-low{
     color: #ffffff;
@@ -28,13 +31,25 @@
     border: 2px solid black;
     border-radius: 20%;
 }
-.card-body{
-    width: 150px;
-    border: 1px solid black;
-    border-radius: 5%;
-    margin: 2px;
-}
 .container{
     display: flex;
     flex-direction: row;
+}
+.card{
+    width: 200px;
+    color: white;
+    background-color: rgb(8, 107, 255);
+}
+.card-deck{
+    margin: 5px;
+    border: 2px solid black;
+    float: right;
+}
+#loc-button-div{
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.loc-btn{
+    margin: 5px;
 }

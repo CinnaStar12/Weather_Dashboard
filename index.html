@@ -7,7 +7,9 @@
     <link rel="stylesheet" type="text/css" href="assets/CSS/reset.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://kit.fontawesome.com/5bc96e206d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="assets/CSS/style.css">
+
 </head>
 
 <body>
@@ -16,18 +18,23 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-md-4 text-center" id="search-div">
+            <div class="col-md text-center" id="search-div">
                 <p class="h4">
                     Enter a location:
                 </p>
-                <div class="form-group">
+                <div class="form-inline">
                     <input type="text" class="form-control" id="city-input">
-                    <button class="btn btn-primary" id="submit">Submit</button>
+                    <span><button class="btn btn-primary" id="search"><span class="fas fa-search-plus"</button></span>
+                </div>
+                <div id="loc-button-div">
+
                 </div>
             </div>
             <div class="col-md-8 text-left" id="results-div">
             </div>
+            <div class="col-md-8 forecast-div">
 
+            </div>
         </div>
     </div>
     </div>
