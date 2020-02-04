@@ -1,0 +1,30 @@
+#search-div{
+    border: 2px solid black;
+    padding: 20px;
+}
+#results-div{
+    border: 2px solid #555555;
+}
+.uv-low{
+    color: #ffffff;
+    background-color: rgb(19, 245, 11);
+}
+.uv-moderate{
+    background-color: yellow;
+}
+.uv-high{
+    color: #ffffff;
+    background-color: orange;
+}
+.uv-very-high{
+    color: #ffffff;
+    background-color: red;
+}
+.uv-extreme{
+    color: #ffffff;
+    background-color: violet;;
+}
+#uv{
+    border: 2px solid black;
+    border-radius: 20%;
+}
