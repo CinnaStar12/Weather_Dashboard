@@ -1,10 +1,13 @@
+body{
+    background-image: url(../images/weather.png);
+}
 #search-div{
     border: 2px solid black;
     padding: 20px;
     margin: 5px;
 }    
-    #results-div{
-    border: 2px solid #555555;
+#results-div{
+    border: 2px solid black;
     padding: 15px;
     margin: 5px;
 }
@@ -36,14 +39,13 @@
     flex-direction: row;
 }
 .card{
-    width: 200px;
     color: white;
     background-color: rgb(8, 107, 255);
+    min-width: 90px
 }
 .card-deck{
     margin: 5px;
     border: 2px solid black;
-    float: right;
 }
 #loc-button-div{
     margin: 10px;
@@ -52,4 +54,7 @@
 }
 .loc-btn{
     margin: 5px;
+}
+.form-control{
+    width: 80%;
 }

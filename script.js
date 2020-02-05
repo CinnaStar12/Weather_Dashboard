@@ -5,7 +5,7 @@ $("document").ready(function () {
         currentWeather(location);
         locationButton(location);
     });
-    currentWeather("London");
+    currentWeather("Houston");
     
 
 });
@@ -20,7 +20,7 @@ function currentWeather(city) {
     }).then(function (response) {
         console.log(response)
         cityName = $("<p>");
-        cityName.text(response.name + "(" + moment().format("MM/DD/YYYY") + ")")
+        cityName.text(response.name + " (" + moment().format("MM/DD/YYYY") + ") ")
         cityName.attr("class", "h2");
         var weatherIcon = $("<span>");
         if(response.weather[0].main === "Clouds")
@@ -127,11 +127,10 @@ function forecast(city){
             humidity = day[i].main.humidity;
             humidity = humidity.toFixed(0);
             var forecastCard = $("<div>")
-            forecastCard.attr("class", "card col-md");
+            forecastCard.attr("class", "card col-lg");
             var forecastDay = $("<h5>")
-            forecastDay.text(moment().add(dayIndex, 'd').format("ddd") + " " + moment().add(dayIndex, 'd').format('MM/DD'));
+            forecastDay.text(moment().add(dayIndex, 'd').format("ddd") + " ");
             dayIndex++;
-            forecastCard.append(forecastDay);
             var forecastIcon = $("<span>")
             if(day[i].weather[0].main === "Clouds")
             {
@@ -155,13 +154,26 @@ function forecast(city){
             else if(day[i].weather[0].main >= 700 && response.weather[0].id < 800){
                 forecastIcon.attr("class", "fas fa-smog")
             }
-            forecastCard.append(forecastIcon);
+            forecastDay.append(forecastIcon);
+            forecastCard.append(forecastDay);
             var forecastTemp = $("<p>");
-            forecastTemp.text(tempMin + String.fromCharCode(176) + "F");
+            forecastTemp.text(" " + tempMin + String.fromCharCode(176) + "F");
+            var forecastTempIcon = $("<span>");
+            if(tempMin <= "75")
+            {
+                forecastTempIcon.attr("class", "fas fa-temperature-low");
+            }
+            else{
+                forecastTempIcon.attr("class", "fas fa-temperature-high");
+            }
             forecastCard.append(forecastTemp);
+            forecastTemp.prepend(forecastTempIcon);
             var forecastHumidity = $("<p>");
-            forecastHumidity.text("Humidity: " + humidity + "%");
+            forecastHumidity.text(" " + humidity + "%");
+            var forecastHumidityIcon = $("<span>");
+            forecastHumidityIcon.attr("class", "fas fa-tint");
             forecastCard.append(forecastHumidity);
+            forecastHumidity.prepend(forecastHumidityIcon);
             forecastDeck.append(forecastCard);
             
         }
